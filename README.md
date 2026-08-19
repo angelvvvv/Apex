@@ -126,5 +126,22 @@ Admin routes require `Authorization: Bearer <token>` with a JWT for a `role: 'ad
 
 ## Deployment
 
-See the deployment steps shared separately (Vercel for `/client`, Render for `/server`) once
-the app is verified working locally.
+Deploy the API to Render and the client to Vercel. Both give you HTTPS automatically.
+
+### Render (`/server`)
+
+1. [render.com](https://render.com) → **New → Web Service** → connect this GitHub repo.
+2. Root Directory: `server` · Runtime: Node · Build Command: `npm install` · Start Command: `npm start`
+3. Environment variables: `MYSQLHOST`, `MYSQLUSER`, `MYSQLPASSWORD`, `MYSQLDATABASE`, `MYSQLPORT`
+   (use Railway's **public proxy** host/port — Render isn't on Railway's private network any more
+   than your laptop is) and a real `JWT_SECRET` (generate one with
+   `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"` — don't reuse the
+   `dev-only-placeholder` value from local `.env`).
+4. Deploy, then copy the resulting URL (e.g. `https://apex-server.onrender.com`).
+
+### Vercel (`/client`)
+
+1. [vercel.com](https://vercel.com) → **Add New → Project** → import this repo.
+2. Root Directory: `client` (Vite is auto-detected).
+3. Environment variable: `VITE_API_URL` = `https://<your-render-url>.onrender.com/api`
+4. Deploy.
