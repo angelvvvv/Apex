@@ -69,6 +69,7 @@ router.post("/", asyncHandler(async (req, res) => {
     city,
     price_per_day,
     description,
+    image_url,
   } = req.body;
 
   if (!owner_name || !owner_email || !make || !model || !year || !price_per_day) {
@@ -87,9 +88,9 @@ router.post("/", asyncHandler(async (req, res) => {
 
     const [result] = await conn.query(
       `INSERT INTO cars
-         (owner_id, make, model, year, engine, power, mileage, city, price_per_day, description)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [ownerId, make, model, year, engine, power, mileage || null, city, price_per_day, description]
+         (owner_id, make, model, year, engine, power, mileage, city, price_per_day, description, image_url)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [ownerId, make, model, year, engine, power, mileage || null, city, price_per_day, description, image_url || null]
     );
 
     res.status(201).json({ id: result.insertId, owner_id: ownerId });

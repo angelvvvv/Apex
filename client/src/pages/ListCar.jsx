@@ -14,6 +14,7 @@ const initialForm = {
   city: "",
   price_per_day: "",
   description: "",
+  image_url: "",
 };
 
 export default function ListCar() {
@@ -130,6 +131,16 @@ export default function ListCar() {
               rows={4}
               value={form.description}
               onChange={handleChange}
+            />
+          </div>
+
+          <div className="field">
+            <label>Photo URL (optional)</label>
+            <input
+              name="image_url"
+              value={form.image_url}
+              onChange={handleChange}
+              placeholder="https://..."
             />
           </div>
 

@@ -67,6 +67,7 @@ export default function AdminDashboard() {
       city: car.city || "",
       mileage: car.mileage ?? "",
       description: car.description || "",
+      image_url: car.image_url || "",
     });
   }
 

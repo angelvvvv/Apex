@@ -11,7 +11,7 @@ router.use(requireAdmin);
 router.put(
   "/cars/:id",
   asyncHandler(async (req, res) => {
-    const fields = ["make", "model", "year", "engine", "power", "mileage", "city", "price_per_day", "description"];
+    const fields = ["make", "model", "year", "engine", "power", "mileage", "city", "price_per_day", "description", "image_url"];
     const updates = fields.filter((f) => req.body[f] !== undefined);
 
     if (updates.length === 0) {

@@ -23,6 +23,7 @@ const CARS = [
     price_per_day: 1899,
     description:
       "Track-bred Ferrari with the naturally-aspirated soul of the 458 and the shove of forced induction. Immaculate, single owner.",
+    image_url: "/images/ferrari-488-pista.jpg",
   },
   {
     owner: 0,
@@ -36,6 +37,7 @@ const CARS = [
     price_per_day: 1699,
     description:
       "Naturally-aspirated V10 theatre. Rear-wheel steering and Lamborghini Dinamica Veicolo Integrata make this as usable as it is loud.",
+    image_url: "/images/lamborghini-huracan-evo.jpg",
   },
   {
     owner: 1,
@@ -49,6 +51,7 @@ const CARS = [
     price_per_day: 1799,
     description:
       "Carbon-tub supercar with a drag coefficient built for lap times, not just looks. Dihedral doors, butter-smooth dual-clutch gearbox.",
+    image_url: "/images/mclaren-720s.jpg",
   },
   {
     owner: 1,
@@ -62,6 +65,7 @@ const CARS = [
     price_per_day: 999,
     description:
       "The everyday supercar. All-wheel drive, launch control, and enough composure to make 200 mph feel routine.",
+    image_url: "/images/porsche-911-turbo-s.jpg",
   },
   {
     owner: 2,
@@ -75,6 +79,7 @@ const CARS = [
     price_per_day: 1499,
     description:
       "The fastest, most powerful Rolls-Royce ever built at launch. A coupe that whispers rather than shouts.",
+    image_url: "/images/rolls-royce-wraith.jpg",
   },
   {
     owner: 2,
@@ -88,6 +93,7 @@ const CARS = [
     price_per_day: 1099,
     description:
       "Grand tourer proportions with a hand-finished cabin. Effortless motorway miles, sharp enough for the canyon roads too.",
+    image_url: "/images/aston-martin-db11.jpg",
   },
 ];
 
@@ -118,13 +124,20 @@ async function seed() {
 
     const [[{ count }]] = await conn.query("SELECT COUNT(*) as count FROM cars");
     if (count > 0) {
-      console.log(`Skipping car seed — ${count} car(s) already present.`);
+      console.log(`${count} car(s) already present — backfilling image_url by make/model instead of re-inserting.`);
+      for (const car of CARS) {
+        await conn.query("UPDATE cars SET image_url = ? WHERE make = ? AND model = ? AND image_url IS NULL", [
+          car.image_url,
+          car.make,
+          car.model,
+        ]);
+      }
     } else {
       for (const car of CARS) {
         await conn.query(
           `INSERT INTO cars
-             (owner_id, make, model, year, engine, power, mileage, city, price_per_day, description)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+             (owner_id, make, model, year, engine, power, mileage, city, price_per_day, description, image_url)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           [
             ownerIds[car.owner],
             car.make,
@@ -136,6 +149,7 @@ async function seed() {
             car.city,
             car.price_per_day,
             car.description,
+            car.image_url,
           ]
         );
       }

@@ -71,6 +71,9 @@ password: ApexAdmin123!
 **This is a placeholder password for local/demo use only.** Change it (and re-seed, or
 update the row directly) before using this anywhere real.
 
+Seed photos in `client/public/images/` are freely-licensed press/show photos from
+[Wikimedia Commons](https://commons.wikimedia.org).
+
 ## 5. Run both apps in dev mode
 
 In two terminals:

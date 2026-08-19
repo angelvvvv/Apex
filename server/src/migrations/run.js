@@ -20,9 +20,9 @@ async function migrate() {
         console.log("OK:", statement.split("\n")[0].slice(0, 70));
       } catch (err) {
         // Re-running the migration is safe for tables (IF NOT EXISTS), but
-        // plain CREATE INDEX has no such guard — skip if it already exists.
-        if (err.code === "ER_DUP_KEYNAME") {
-          console.log("Skip (index exists):", statement.split("\n")[0].slice(0, 70));
+        // plain CREATE INDEX / ADD COLUMN has no such guard — skip if it already exists.
+        if (err.code === "ER_DUP_KEYNAME" || err.code === "ER_DUP_FIELDNAME") {
+          console.log("Skip (already exists):", statement.split("\n")[0].slice(0, 70));
         } else {
           throw err;
         }
