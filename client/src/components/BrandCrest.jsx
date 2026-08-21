@@ -1,3 +1,5 @@
+import { logoFor } from "../brandLogos.js";
+
 function initialsFor(make) {
   if (!make) return "?";
   const words = make.trim().split(/[\s-]+/).filter(Boolean);
@@ -6,6 +8,16 @@ function initialsFor(make) {
 }
 
 export default function BrandCrest({ make, size = 44 }) {
+  const logo = logoFor(make);
+
+  if (logo) {
+    return (
+      <span className="brand-logo-badge" style={{ height: Math.round(size * 0.72) }}>
+        <img src={logo} alt={`${make} logo`} />
+      </span>
+    );
+  }
+
   const initials = initialsFor(make);
   return (
     <svg
