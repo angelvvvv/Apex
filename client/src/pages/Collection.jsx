@@ -4,6 +4,7 @@ import { api } from "../api.js";
 
 export default function Collection() {
   const [cars, setCars] = useState([]);
+  const [makes, setMakes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [filters, setFilters] = useState({ make: "", city: "", minPrice: "", maxPrice: "" });
@@ -23,6 +24,13 @@ export default function Collection() {
 
   useEffect(() => {
     load(filters);
+    api
+      .getCars({})
+      .then((all) => {
+        const unique = [...new Set(all.map((car) => car.make))].sort();
+        setMakes(unique);
+      })
+      .catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -49,7 +57,14 @@ export default function Collection() {
       <form className="filter-bar" onSubmit={handleSubmit}>
         <div className="field">
           <label>Make</label>
-          <input name="make" value={filters.make} onChange={handleChange} placeholder="Ferrari" />
+          <select name="make" value={filters.make} onChange={handleChange}>
+            <option value="">All Makes</option>
+            {makes.map((make) => (
+              <option key={make} value={make}>
+                {make}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="field">
           <label>City</label>

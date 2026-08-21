@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../api.js";
+import BrandCrest from "../components/BrandCrest.jsx";
 
 function daysBetween(start, end) {
   if (!start || !end) return 0;
@@ -80,12 +81,15 @@ export default function CarDetail() {
 
   return (
     <div className="container">
-      <div className="page-header">
-        <div className="eyebrow">Lot {String(car.id).padStart(3, "0")}</div>
-        <h1>
-          {car.year} {car.make} {car.model}
-        </h1>
-        <p>Offered by {car.owner_name}</p>
+      <div className="page-header detail-header">
+        <div>
+          <div className="eyebrow">Lot {String(car.id).padStart(3, "0")}</div>
+          <h1>
+            {car.year} {car.make} {car.model}
+          </h1>
+          <p>Offered by {car.owner_name}</p>
+        </div>
+        <BrandCrest make={car.make} size={64} />
       </div>
 
       <div className="detail-layout">

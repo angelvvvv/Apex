@@ -196,6 +196,13 @@ textarea {
   max-width: 620px;
 }
 
+.detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
 /* --- Filters --- */
 
 .filter-bar {
@@ -283,6 +290,17 @@ textarea {
   letter-spacing: 0.08em;
   padding: 4px 10px;
   text-transform: uppercase;
+}
+
+.lot-crest {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35));
+}
+
+.brand-crest {
+  display: block;
 }
 
 .lot-body {
