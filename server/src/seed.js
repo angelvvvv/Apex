@@ -8,6 +8,8 @@ const OWNERS = [
   { name: "Marcus Whitfield", email: "marcus.whitfield@apex.demo" },
   { name: "Elena Rossi", email: "elena.rossi@apex.demo" },
   { name: "James Okafor", email: "james.okafor@apex.demo" },
+  { name: "Priya Anand", email: "priya.anand@apex.demo" },
+  { name: "Diego Fernandez", email: "diego.fernandez@apex.demo" },
 ];
 
 const CARS = [
@@ -95,6 +97,76 @@ const CARS = [
       "Grand tourer proportions with a hand-finished cabin. Effortless motorway miles, sharp enough for the canyon roads too.",
     image_url: "/images/aston-martin-db11.jpg",
   },
+  {
+    owner: 3,
+    make: "Bugatti",
+    model: "Chiron",
+    year: 2020,
+    engine: "8.0L Quad-Turbo W16",
+    power: "1479 hp",
+    mileage: 900,
+    city: "Las Vegas, NV",
+    price_per_day: 4999,
+    description:
+      "The pinnacle of automotive engineering. A quad-turbo W16 built for a 261 mph top speed, and a cabin trimmed like a private jet.",
+    image_url: "/images/bugatti-chiron.jpg",
+  },
+  {
+    owner: 3,
+    make: "Bentley",
+    model: "Continental GT",
+    year: 2022,
+    engine: "4.0L Twin-Turbo V8",
+    power: "542 hp",
+    mileage: 3400,
+    city: "Chicago, IL",
+    price_per_day: 1299,
+    description:
+      "Hand-stitched leather, cut diamond dashboard details, and a twin-turbo V8 that hustles this grand tourer with real urgency.",
+    image_url: "/images/bentley-continental-gt.jpg",
+  },
+  {
+    owner: 4,
+    make: "Mercedes-AMG",
+    model: "GT Black Series",
+    year: 2022,
+    engine: "4.0L Twin-Turbo V8",
+    power: "720 hp",
+    mileage: 2100,
+    city: "Austin, TX",
+    price_per_day: 1899,
+    description:
+      "AMG's most extreme road car. Motorsport-derived aero, a flat-plane-crank V8, and a Nürburgring lap record to prove it.",
+    image_url: "/images/mercedes-amg-gt.jpg",
+  },
+  {
+    owner: 4,
+    make: "Audi",
+    model: "R8",
+    year: 2018,
+    engine: "5.2L V10",
+    power: "602 hp",
+    mileage: 6200,
+    city: "San Francisco, CA",
+    price_per_day: 1099,
+    description:
+      "Naturally-aspirated V10 shared with the Huracan, wrapped in Audi's understated everyday-usable shell. Quattro all-wheel drive included.",
+    image_url: "/images/audi-r8.jpg",
+  },
+  {
+    owner: 4,
+    make: "Maserati",
+    model: "MC20",
+    year: 2022,
+    engine: "3.0L Twin-Turbo V6",
+    power: "621 hp",
+    mileage: 2800,
+    city: "Scottsdale, AZ",
+    price_per_day: 1599,
+    description:
+      "Butterfly doors and an in-house Nettuno V6 with F1-derived pre-chamber combustion. Maserati's return to true supercar form.",
+    image_url: "/images/maserati-mc20.jpg",
+  },
 ];
 
 async function seed() {
@@ -122,18 +194,15 @@ async function seed() {
     }
     console.log("Seeded owners:", ownerIds);
 
-    const [[{ count }]] = await conn.query("SELECT COUNT(*) as count FROM cars");
-    if (count > 0) {
-      console.log(`${count} car(s) already present — backfilling image_url by make/model instead of re-inserting.`);
-      for (const car of CARS) {
-        await conn.query("UPDATE cars SET image_url = ? WHERE make = ? AND model = ? AND image_url IS NULL", [
-          car.image_url,
-          car.make,
-          car.model,
-        ]);
-      }
-    } else {
-      for (const car of CARS) {
+    let inserted = 0;
+    let backfilled = 0;
+    for (const car of CARS) {
+      const [existing] = await conn.query("SELECT id, image_url FROM cars WHERE make = ? AND model = ?", [
+        car.make,
+        car.model,
+      ]);
+
+      if (existing.length === 0) {
         await conn.query(
           `INSERT INTO cars
              (owner_id, make, model, year, engine, power, mileage, city, price_per_day, description, image_url)
@@ -152,9 +221,13 @@ async function seed() {
             car.image_url,
           ]
         );
+        inserted += 1;
+      } else if (!existing[0].image_url) {
+        await conn.query("UPDATE cars SET image_url = ? WHERE id = ?", [car.image_url, existing[0].id]);
+        backfilled += 1;
       }
-      console.log(`Seeded ${CARS.length} cars.`);
     }
+    console.log(`Inserted ${inserted} new car(s), backfilled image_url on ${backfilled}.`);
 
     console.log("\nAdmin login -> email:", ADMIN_EMAIL, " password:", ADMIN_PASSWORD);
   } finally {
