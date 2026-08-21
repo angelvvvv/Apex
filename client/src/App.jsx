@@ -27,7 +27,12 @@ export default function App() {
           }
         />
       </Routes>
-      <footer className="site-footer">Apex — Fine Motorcar Rentals. Capstone demo project.</footer>
+      <footer className="site-footer">
+        <div className="footer-brand">Apex</div>
+        <div className="footer-tagline">Fine Motorcar Rentals</div>
+        <div className="ornament" />
+        <div className="footer-copy">Capstone demo project.</div>
+      </footer>
     </div>
   );
 }

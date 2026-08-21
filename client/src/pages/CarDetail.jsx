@@ -94,15 +94,17 @@ export default function CarDetail() {
 
       <div className="detail-layout">
         <div>
-          <div
-            className="detail-photo"
-            style={car.image_url ? { background: `center / cover no-repeat url(${car.image_url})` } : undefined}
-          >
-            {!car.image_url && (
-              <>
-                {car.make} {car.model}
-              </>
-            )}
+          <div className="detail-photo-frame">
+            <div
+              className="detail-photo"
+              style={car.image_url ? { background: `center / cover no-repeat url(${car.image_url})` } : undefined}
+            >
+              {!car.image_url && (
+                <>
+                  {car.make} {car.model}
+                </>
+              )}
+            </div>
           </div>
           <table className="spec-table">
             <tbody>

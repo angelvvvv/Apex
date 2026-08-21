@@ -63,75 +63,116 @@ textarea {
   width: 100%;
 }
 
+/* --- Ornament divider --- */
+
+.ornament {
+  height: 1px;
+  width: 110px;
+  margin: 18px auto;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+  position: relative;
+  opacity: 0.55;
+}
+
+.ornament::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
 /* --- Navbar --- */
 
 .navbar {
   background: var(--navy);
   color: var(--ivory);
-  border-bottom: 3px solid var(--wine);
+  border-bottom: 2px solid var(--wine);
+  box-shadow: 0 6px 18px -10px rgba(0, 0, 0, 0.55);
+  position: relative;
+  z-index: 10;
 }
 
 .navbar-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 24px;
+  padding: 20px 24px;
 }
 
 .brand {
   font-family: "Playfair Display", serif;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   color: var(--ivory);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
 }
 
 .brand-sub {
   font-family: "Inter", sans-serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--wine-light);
   display: block;
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 .nav-links {
   display: flex;
-  gap: 28px;
+  gap: 32px;
   align-items: center;
 }
 
 .nav-links a {
-  font-size: 0.85rem;
-  letter-spacing: 0.06em;
+  position: relative;
+  padding-bottom: 5px;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ivory);
-  opacity: 0.85;
-  transition: opacity 0.15s;
 }
 
-.nav-links a:hover {
-  opacity: 1;
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--wine-light);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.25s ease;
+}
+
+.nav-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 /* --- Buttons --- */
 
 .btn {
   display: inline-block;
-  padding: 12px 28px;
+  padding: 13px 30px;
   border: 1px solid var(--navy);
   background: var(--navy);
   color: var(--ivory);
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 
-.btn:hover {
+.btn:hover:not(:disabled) {
   background: var(--wine);
   border-color: var(--wine);
+  box-shadow: 0 10px 22px -8px rgba(107, 39, 55, 0.55);
+  transform: translateY(-1px);
 }
 
 .btn:disabled {
@@ -144,9 +185,10 @@ textarea {
   color: var(--navy);
 }
 
-.btn-outline:hover {
+.btn-outline:hover:not(:disabled) {
   background: var(--navy);
   color: var(--ivory);
+  box-shadow: 0 10px 22px -8px rgba(35, 44, 59, 0.45);
 }
 
 .btn-wine {
@@ -154,14 +196,19 @@ textarea {
   border-color: var(--wine);
 }
 
-.btn-wine:hover {
+.btn-wine:hover:not(:disabled) {
   background: var(--navy);
   border-color: var(--navy);
+  box-shadow: 0 10px 22px -8px rgba(35, 44, 59, 0.55);
 }
 
 .btn-small {
   padding: 6px 14px;
   font-size: 0.75rem;
+}
+
+.btn-small:hover:not(:disabled) {
+  transform: none;
 }
 
 .btn-danger {
@@ -170,12 +217,58 @@ textarea {
   color: var(--wine);
 }
 
-.btn-danger:hover {
+.btn-danger:hover:not(:disabled) {
   background: var(--wine);
   color: var(--ivory);
 }
 
-/* --- Page header --- */
+/* --- Hero band (Collection page) --- */
+
+.hero {
+  background: linear-gradient(165deg, var(--navy) 0%, var(--navy-light) 55%, var(--navy) 100%);
+  color: var(--ivory);
+  text-align: center;
+  padding: 76px 24px 96px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(107, 39, 55, 0.4), transparent 60%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.hero .eyebrow {
+  color: var(--wine-light);
+}
+
+.hero h1 {
+  color: var(--ivory);
+  font-size: clamp(2.1rem, 4.5vw, 3rem);
+  margin-bottom: 0;
+}
+
+.hero .ornament {
+  color: var(--wine-light);
+}
+
+.hero p {
+  color: rgba(246, 242, 232, 0.72);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* --- Page header (other pages) --- */
 
 .page-header {
   padding: 48px 0 32px;
@@ -185,7 +278,7 @@ textarea {
 
 .eyebrow {
   font-size: 0.75rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--wine);
   margin-bottom: 10px;
@@ -207,24 +300,28 @@ textarea {
 
 .filter-bar {
   display: flex;
-  gap: 16px;
+  gap: 28px;
   flex-wrap: wrap;
   align-items: flex-end;
-  margin-bottom: 36px;
-  padding: 20px;
+  margin: -56px auto 40px;
+  padding: 26px 28px;
   background: var(--white);
-  border: 1px solid var(--line);
+  border: none;
+  box-shadow: 0 20px 40px -18px rgba(35, 44, 59, 0.35);
+  position: relative;
+  z-index: 2;
+  max-width: 1052px;
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .field label {
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -232,17 +329,28 @@ textarea {
 .field input,
 .field select,
 .field textarea {
-  padding: 10px 12px;
-  border: 1px solid var(--line);
-  background: var(--ivory);
+  padding: 8px 2px;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
   color: var(--navy);
+  border-radius: 0;
+  transition: border-color 0.2s ease;
+}
+
+.form-card .field input,
+.form-card .field select,
+.form-card .field textarea {
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  background: var(--ivory);
 }
 
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
-  outline: 2px solid var(--wine);
-  outline-offset: -1px;
+  outline: none;
+  border-color: var(--wine);
 }
 
 /* --- Car grid / lot cards --- */
@@ -250,8 +358,19 @@ textarea {
 .lot-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
-  padding-bottom: 60px;
+  gap: 28px;
+  padding-bottom: 64px;
+}
+
+@keyframes lotFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .lot-card {
@@ -259,17 +378,71 @@ textarea {
   border: 1px solid var(--line);
   display: flex;
   flex-direction: column;
-  transition: box-shadow 0.15s, transform 0.15s;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  animation: lotFadeUp 0.5s ease both;
+}
+
+.lot-grid .lot-card:nth-child(1) { animation-delay: 0.02s; }
+.lot-grid .lot-card:nth-child(2) { animation-delay: 0.06s; }
+.lot-grid .lot-card:nth-child(3) { animation-delay: 0.1s; }
+.lot-grid .lot-card:nth-child(4) { animation-delay: 0.14s; }
+.lot-grid .lot-card:nth-child(5) { animation-delay: 0.18s; }
+.lot-grid .lot-card:nth-child(6) { animation-delay: 0.22s; }
+
+.lot-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--wine);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  z-index: 3;
 }
 
 .lot-card:hover {
-  box-shadow: 0 8px 24px rgba(35, 44, 59, 0.12);
-  transform: translateY(-2px);
+  box-shadow: 0 20px 36px -14px rgba(35, 44, 59, 0.3);
+  transform: translateY(-3px);
+}
+
+.lot-card:hover::before {
+  transform: scaleX(1);
 }
 
 .lot-photo {
-  height: 170px;
+  height: 190px;
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+}
+
+.lot-photo-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s ease;
+}
+
+.lot-card:hover .lot-photo-img {
+  transform: scale(1.09);
+}
+
+.lot-photo-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.4) 100%);
+  pointer-events: none;
+}
+
+.lot-photo-fallback {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -277,7 +450,8 @@ textarea {
   font-family: "Playfair Display", serif;
   font-size: 0.95rem;
   letter-spacing: 0.05em;
-  position: relative;
+  text-align: center;
+  padding: 0 16px;
 }
 
 .lot-number {
@@ -286,25 +460,46 @@ textarea {
   left: 12px;
   background: var(--wine);
   color: var(--ivory);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
   padding: 4px 10px;
   text-transform: uppercase;
+  z-index: 2;
 }
 
 .lot-crest {
   position: absolute;
   top: 10px;
   right: 10px;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35));
+  z-index: 2;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.4));
 }
 
 .brand-crest {
   display: block;
 }
 
+.lot-view-cta {
+  position: absolute;
+  bottom: 10px;
+  left: 14px;
+  z-index: 2;
+  color: var(--ivory);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.lot-card:hover .lot-view-cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .lot-body {
-  padding: 18px 20px 20px;
+  padding: 20px 22px 22px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -318,7 +513,7 @@ textarea {
 .lot-spec {
   font-size: 0.85rem;
   color: var(--muted);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .lot-price {
@@ -332,15 +527,15 @@ textarea {
 
 .lot-price strong {
   font-family: "Playfair Display", serif;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: var(--wine);
 }
 
 .lot-price span {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 }
 
 /* --- Car detail --- */
@@ -349,7 +544,7 @@ textarea {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
   gap: 48px;
-  padding-bottom: 60px;
+  padding-bottom: 64px;
 }
 
 @media (max-width: 860px) {
@@ -358,8 +553,16 @@ textarea {
   }
 }
 
+.detail-photo-frame {
+  background: var(--white);
+  padding: 10px;
+  border: 1px solid var(--line);
+  box-shadow: 0 16px 32px -18px rgba(35, 44, 59, 0.3);
+  margin-bottom: 28px;
+}
+
 .detail-photo {
-  height: 340px;
+  height: 420px;
   background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
   color: var(--wine-light);
   font-family: "Playfair Display", serif;
@@ -367,7 +570,6 @@ textarea {
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
-  margin-bottom: 28px;
 }
 
 .spec-table {
@@ -375,23 +577,30 @@ textarea {
   border-collapse: collapse;
 }
 
+.spec-table tr:nth-child(even) {
+  background: rgba(107, 39, 55, 0.035);
+}
+
 .spec-table td {
-  padding: 12px 0;
+  padding: 13px 10px;
   border-bottom: 1px solid var(--line);
 }
 
 .spec-table td:first-child {
   color: var(--muted);
   text-transform: uppercase;
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
   width: 40%;
+  padding-left: 0;
 }
 
 .booking-panel {
   background: var(--white);
   border: 1px solid var(--line);
-  padding: 28px;
+  border-top: 3px solid var(--wine);
+  box-shadow: 0 20px 40px -20px rgba(35, 44, 59, 0.3);
+  padding: 30px;
   align-self: start;
   position: sticky;
   top: 24px;
@@ -437,7 +646,9 @@ textarea {
 .form-card {
   background: var(--white);
   border: 1px solid var(--line);
-  padding: 32px;
+  border-top: 3px solid var(--wine);
+  box-shadow: 0 20px 40px -22px rgba(35, 44, 59, 0.3);
+  padding: 34px;
   max-width: 560px;
 }
 
@@ -465,9 +676,11 @@ textarea {
   max-width: 560px;
   margin: 60px auto;
   text-align: center;
-  padding: 48px 32px;
+  padding: 52px 36px;
   background: var(--white);
   border: 1px solid var(--line);
+  border-top: 3px solid var(--wine);
+  box-shadow: 0 24px 48px -24px rgba(35, 44, 59, 0.35);
 }
 
 .confirmation .lot-number {
@@ -497,6 +710,11 @@ textarea {
   border-top: none;
   border-left: none;
   border-right: none;
+  transition: color 0.2s ease;
+}
+
+.admin-tab:hover {
+  color: var(--navy);
 }
 
 .admin-tab.active {
@@ -509,6 +727,7 @@ textarea {
   border-collapse: collapse;
   background: var(--white);
   border: 1px solid var(--line);
+  box-shadow: 0 16px 32px -20px rgba(35, 44, 59, 0.25);
 }
 
 .admin-table th,
@@ -581,10 +800,32 @@ textarea {
 }
 
 footer.site-footer {
-  border-top: 1px solid var(--line);
-  padding: 24px;
+  background: var(--navy);
+  color: rgba(246, 242, 232, 0.6);
   text-align: center;
-  color: var(--muted);
-  font-size: 0.8rem;
+  padding: 48px 24px 36px;
   margin-top: auto;
+}
+
+.footer-brand {
+  font-family: "Playfair Display", serif;
+  font-size: 1.3rem;
+  color: var(--ivory);
+  letter-spacing: 0.03em;
+}
+
+.footer-tagline {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--wine-light);
+  margin-top: 4px;
+}
+
+footer.site-footer .ornament {
+  color: var(--wine-light);
+}
+
+.footer-copy {
+  font-size: 0.78rem;
 }

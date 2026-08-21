@@ -44,16 +44,20 @@ export default function Collection() {
   }
 
   return (
-    <div className="container">
-      <div className="page-header">
-        <div className="eyebrow">The Collection</div>
-        <h1>Current Lots</h1>
-        <p>
-          Every vehicle below is offered directly by its owner. Reserve online; the collector
-          confirms availability upon request.
-        </p>
+    <div>
+      <div className="hero">
+        <div className="hero-content">
+          <div className="eyebrow">Est. for the Discerning Collector</div>
+          <h1>The Current Collection</h1>
+          <div className="ornament" />
+          <p>
+            Every vehicle below is offered directly by its owner. Reserve online; the collector
+            confirms availability upon request.
+          </p>
+        </div>
       </div>
 
+      <div className="container">
       <form className="filter-bar" onSubmit={handleSubmit}>
         <div className="field">
           <label>Make</label>
@@ -108,6 +112,7 @@ export default function Collection() {
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 }
