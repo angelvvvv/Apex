@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
+import ApexLogo from "./components/ApexLogo.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Collection from "./pages/Collection.jsx";
 import CarDetail from "./pages/CarDetail.jsx";
@@ -28,6 +29,9 @@ export default function App() {
         />
       </Routes>
       <footer className="site-footer">
+        <div className="footer-logo">
+          <ApexLogo size={40} />
+        </div>
         <div className="footer-brand">Apex</div>
         <div className="footer-tagline">Fine Motorcar Rentals</div>
         <div className="ornament" />

@@ -27,11 +27,40 @@ body {
 }
 
 body {
-  background: var(--bg);
+  background: radial-gradient(circle at 15% 0%, rgba(156, 55, 82, 0.08), transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(58, 68, 87, 0.25), transparent 45%), var(--bg);
   color: var(--ink);
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 16px;
   line-height: 1.5;
+}
+
+::selection {
+  background: var(--wine);
+  color: var(--ink);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-2);
+  border: 3px solid var(--bg);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--wine);
+}
+
+html {
+  scrollbar-color: var(--surface-2) var(--bg);
 }
 
 h1,
@@ -112,11 +141,18 @@ textarea {
   padding: 18px 24px;
 }
 
+.brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .brand {
   font-family: "Playfair Display", serif;
   font-size: 1.7rem;
   color: var(--ink);
   letter-spacing: 0.03em;
+  display: block;
 }
 
 .brand-sub {
@@ -279,6 +315,24 @@ textarea {
   z-index: -1;
   background: linear-gradient(180deg, rgba(13, 16, 22, 0.55) 0%, rgba(13, 16, 22, 0.88) 65%, var(--bg) 100%),
     radial-gradient(circle at 50% 10%, rgba(156, 55, 82, 0.35), transparent 55%);
+}
+
+.hero-spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(209, 84, 111, 0.16),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hero:hover .hero-spotlight {
+  opacity: 1;
 }
 
 .hero-content {
@@ -959,6 +1013,12 @@ footer.site-footer {
   padding: 48px 24px 36px;
   margin-top: auto;
   border-top: 1px solid var(--line);
+}
+
+.footer-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
 }
 
 .footer-brand {

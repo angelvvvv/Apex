@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CarCard from "../components/CarCard.jsx";
 import BrandCrest from "../components/BrandCrest.jsx";
+import CountUp from "../components/CountUp.jsx";
 import { api } from "../api.js";
 
 export default function Collection() {
@@ -47,10 +48,18 @@ export default function Collection() {
     load(filters);
   }
 
+  function handleHeroMouseMove(e) {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+    el.style.setProperty("--my", `${e.clientY - rect.top}px`);
+  }
+
   return (
     <div>
-      <div className="hero">
+      <div className="hero" onMouseMove={handleHeroMouseMove}>
         <div className="hero-bg" style={{ backgroundImage: "url(/images/ferrari-488-pista.jpg)" }} />
+        <div className="hero-spotlight" />
         <div className="hero-content">
           <div className="eyebrow">Est. for the Discerning Collector</div>
           <h1>Drive the Extraordinary</h1>
@@ -60,7 +69,9 @@ export default function Collection() {
             the collector confirms availability upon request.
           </p>
           <div className="trust-bar">
-            <span>{totalCount ?? "12"}+ Exotic Models</span>
+            <span>
+              <CountUp end={totalCount ?? 15} suffix="+ Exotic Models" />
+            </span>
             <span>Verified Owners</span>
             <span>Fully Insured</span>
             <span>Instant Booking</span>
