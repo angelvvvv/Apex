@@ -46,72 +46,79 @@ export default function Collection() {
   return (
     <div>
       <div className="hero">
+        <div className="hero-bg" style={{ backgroundImage: "url(/images/ferrari-488-pista.jpg)" }} />
         <div className="hero-content">
           <div className="eyebrow">Est. for the Discerning Collector</div>
-          <h1>The Current Collection</h1>
+          <h1>Drive the Extraordinary</h1>
           <div className="ornament" />
           <p>
-            Every vehicle below is offered directly by its owner. Reserve online; the collector
-            confirms availability upon request.
+            Ferraris, Lamborghinis, and more — offered directly by their owners. Reserve online;
+            the collector confirms availability upon request.
           </p>
+          <div className="trust-bar">
+            <span>{cars.length || "6"}+ Exotic Models</span>
+            <span>Verified Owners</span>
+            <span>Fully Insured</span>
+            <span>Instant Booking</span>
+          </div>
         </div>
       </div>
 
       <div className="container">
-      <form className="filter-bar" onSubmit={handleSubmit}>
-        <div className="field">
-          <label>Make</label>
-          <select name="make" value={filters.make} onChange={handleChange}>
-            <option value="">All Makes</option>
-            {makes.map((make) => (
-              <option key={make} value={make}>
-                {make}
-              </option>
+        <form className="filter-bar" onSubmit={handleSubmit}>
+          <div className="field">
+            <label>Make</label>
+            <select name="make" value={filters.make} onChange={handleChange}>
+              <option value="">All Makes</option>
+              {makes.map((make) => (
+                <option key={make} value={make}>
+                  {make}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="field">
+            <label>City</label>
+            <input name="city" value={filters.city} onChange={handleChange} placeholder="Miami" />
+          </div>
+          <div className="field">
+            <label>Min $/day</label>
+            <input
+              name="minPrice"
+              type="number"
+              value={filters.minPrice}
+              onChange={handleChange}
+              placeholder="0"
+            />
+          </div>
+          <div className="field">
+            <label>Max $/day</label>
+            <input
+              name="maxPrice"
+              type="number"
+              value={filters.maxPrice}
+              onChange={handleChange}
+              placeholder="2000"
+            />
+          </div>
+          <button type="submit" className="btn">
+            Filter
+          </button>
+        </form>
+
+        {error && <div className="error-banner">{error}</div>}
+
+        {loading ? (
+          <div className="empty-state">Loading collection…</div>
+        ) : cars.length === 0 ? (
+          <div className="empty-state">No lots match those filters.</div>
+        ) : (
+          <div className="lot-grid">
+            {cars.map((car, i) => (
+              <CarCard key={car.id} car={car} index={i} />
             ))}
-          </select>
-        </div>
-        <div className="field">
-          <label>City</label>
-          <input name="city" value={filters.city} onChange={handleChange} placeholder="Miami" />
-        </div>
-        <div className="field">
-          <label>Min $/day</label>
-          <input
-            name="minPrice"
-            type="number"
-            value={filters.minPrice}
-            onChange={handleChange}
-            placeholder="0"
-          />
-        </div>
-        <div className="field">
-          <label>Max $/day</label>
-          <input
-            name="maxPrice"
-            type="number"
-            value={filters.maxPrice}
-            onChange={handleChange}
-            placeholder="2000"
-          />
-        </div>
-        <button type="submit" className="btn">
-          Filter
-        </button>
-      </form>
-
-      {error && <div className="error-banner">{error}</div>}
-
-      {loading ? (
-        <div className="empty-state">Loading collection…</div>
-      ) : cars.length === 0 ? (
-        <div className="empty-state">No lots match those filters.</div>
-      ) : (
-        <div className="lot-grid">
-          {cars.map((car) => (
-            <CarCard key={car.id} car={car} />
-          ))}
-        </div>
-      )}
+          </div>
+        )}
       </div>
     </div>
   );

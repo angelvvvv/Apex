@@ -17,8 +17,8 @@ export default function BrandCrest({ make, size = 44 }) {
       role="img"
       aria-label={`${make} crest`}
     >
-      <circle cx="22" cy="22" r="21" fill="var(--navy)" stroke="var(--wine-light)" strokeWidth="1" />
-      <circle cx="22" cy="22" r="17.5" fill="none" stroke="var(--wine-light)" strokeWidth="0.75" />
+      <circle cx="22" cy="22" r="21" fill="var(--navy)" stroke="var(--wine-soft)" strokeWidth="1" />
+      <circle cx="22" cy="22" r="17.5" fill="none" stroke="var(--wine-soft)" strokeWidth="0.75" />
       <text
         x="22"
         y="23"

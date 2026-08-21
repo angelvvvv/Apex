@@ -32,6 +32,22 @@ export default function CarDetail() {
 
   const days = daysBetween(form.start_date, form.end_date);
   const total = car ? days * Number(car.price_per_day) : 0;
+  const [displayTotal, setDisplayTotal] = useState(0);
+
+  useEffect(() => {
+    const start = displayTotal;
+    const startTime = performance.now();
+    const duration = 350;
+    let raf;
+    function tick(now) {
+      const t = Math.min(1, (now - startTime) / duration);
+      setDisplayTotal(Math.round(start + (total - start) * t));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    }
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [total]);
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -179,7 +195,7 @@ export default function CarDetail() {
               <span>
                 {days > 0 ? `${days} day${days === 1 ? "" : "s"}` : "Total"}
               </span>
-              <strong>${total.toLocaleString()}</strong>
+              <strong>${displayTotal.toLocaleString()}</strong>
             </div>
 
             <button type="submit" className="btn btn-wine" disabled={submitting}>

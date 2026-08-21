@@ -1,9 +1,17 @@
 import { Link } from "react-router-dom";
 import BrandCrest from "./BrandCrest.jsx";
+import { useReveal } from "../useReveal.js";
 
-export default function CarCard({ car }) {
+export default function CarCard({ car, index = 0 }) {
+  const [ref, visible] = useReveal();
+
   return (
-    <Link to={`/cars/${car.id}`} className="lot-card">
+    <Link
+      to={`/cars/${car.id}`}
+      ref={ref}
+      className={`lot-card${visible ? " in-view" : ""}`}
+      style={{ transitionDelay: `${Math.min(index, 8) * 60}ms` }}
+    >
       <div className="lot-photo">
         {car.image_url && (
           <div className="lot-photo-img" style={{ backgroundImage: `url(${car.image_url})` }} />
