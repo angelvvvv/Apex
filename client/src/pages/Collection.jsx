@@ -132,7 +132,18 @@ export default function Collection() {
         {error && <div className="error-banner">{error}</div>}
 
         {loading ? (
-          <div className="empty-state">Loading collection…</div>
+          <div className="lot-grid">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div className="skeleton-card" key={i}>
+                <div className="skeleton-photo" />
+                <div className="skeleton-lines">
+                  <div className="skeleton-line w-70" />
+                  <div className="skeleton-line w-45" />
+                  <div className="skeleton-line w-30" />
+                </div>
+              </div>
+            ))}
+          </div>
         ) : cars.length === 0 ? (
           <div className="empty-state">No lots match those filters.</div>
         ) : (

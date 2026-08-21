@@ -167,6 +167,62 @@ const CARS = [
       "Butterfly doors and an in-house Nettuno V6 with F1-derived pre-chamber combustion. Maserati's return to true supercar form.",
     image_url: "/images/maserati-mc20.jpg",
   },
+  {
+    owner: 3,
+    make: "Pagani",
+    model: "Huayra",
+    year: 2019,
+    engine: "6.0L Twin-Turbo V12",
+    power: "730 hp",
+    mileage: 1200,
+    city: "Denver, CO",
+    price_per_day: 6999,
+    description:
+      "Hand-built in Modena with active aero flaps and a Mercedes-AMG-sourced V12. Fewer than 100 made — a rolling sculpture.",
+    image_url: "/images/pagani-huayra.jpg",
+  },
+  {
+    owner: 3,
+    make: "Koenigsegg",
+    model: "Jesko",
+    year: 2021,
+    engine: "5.0L Twin-Turbo V8",
+    power: "1280 hp",
+    mileage: 600,
+    city: "Seattle, WA",
+    price_per_day: 7999,
+    description:
+      "Swedish engineering with a top-speed target north of 300 mph and a 9-speed multi-clutch gearbox unlike anything else on sale.",
+    image_url: "/images/koenigsegg-jesko.jpg",
+  },
+  {
+    owner: 4,
+    make: "Nissan",
+    model: "GT-R",
+    year: 2020,
+    engine: "3.8L Twin-Turbo V6",
+    power: "565 hp",
+    mileage: 12400,
+    city: "Dallas, TX",
+    price_per_day: 799,
+    description:
+      "Godzilla. All-wheel drive launch control and a dual-clutch gearbox that make supercar pace approachable — and much easier on the wallet.",
+    image_url: "/images/nissan-gtr.jpg",
+  },
+  {
+    owner: 4,
+    make: "Ferrari",
+    model: "SF90 Stradale",
+    year: 2022,
+    engine: "4.0L Twin-Turbo V8 Hybrid",
+    power: "986 hp",
+    mileage: 1900,
+    city: "Nashville, TN",
+    price_per_day: 2499,
+    description:
+      "Ferrari's first series-production plug-in hybrid. Three electric motors plus a twin-turbo V8 for a combined 986 hp and AWD.",
+    image_url: "/images/ferrari-sf90-stradale.jpg",
+  },
 ];
 
 async function seed() {

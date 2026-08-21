@@ -151,6 +151,7 @@ export default function AdminDashboard() {
       ) : (
         <div style={{ paddingBottom: 60 }}>
           {tab === "Listings" && (
+            <div className="table-scroll">
             <table className="admin-table">
               <thead>
                 <tr>
@@ -231,9 +232,11 @@ export default function AdminDashboard() {
                 )}
               </tbody>
             </table>
+            </div>
           )}
 
           {tab === "Bookings" && (
+            <div className="table-scroll">
             <table className="admin-table">
               <thead>
                 <tr>
@@ -287,9 +290,11 @@ export default function AdminDashboard() {
                 )}
               </tbody>
             </table>
+            </div>
           )}
 
           {tab === "Users" && (
+            <div className="table-scroll">
             <table className="admin-table">
               <thead>
                 <tr>
@@ -327,6 +332,7 @@ export default function AdminDashboard() {
                 )}
               </tbody>
             </table>
+            </div>
           )}
         </div>
       )}

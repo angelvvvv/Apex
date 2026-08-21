@@ -11,6 +11,9 @@ const LOGOS = {
   "mercedes-benz": "/logos/mercedes-amg.svg",
   audi: "/logos/audi.svg",
   maserati: "/logos/maserati.svg",
+  pagani: "/logos/pagani.png",
+  koenigsegg: "/logos/koenigsegg.svg",
+  nissan: "/logos/nissan.svg",
 };
 
 export function logoFor(make) {

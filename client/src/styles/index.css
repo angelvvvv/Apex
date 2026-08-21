@@ -858,8 +858,14 @@ textarea {
   border-bottom-color: var(--wine-soft);
 }
 
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .admin-table {
   width: 100%;
+  min-width: 640px;
   border-collapse: collapse;
   background: var(--surface);
   border: 1px solid var(--line);
@@ -976,4 +982,117 @@ footer.site-footer .ornament {
 
 .footer-copy {
   font-size: 0.78rem;
+}
+
+/* --- Loading skeletons --- */
+
+.skeleton-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.skeleton-photo {
+  height: 190px;
+  background: linear-gradient(100deg, var(--surface) 30%, var(--surface-2) 50%, var(--surface) 70%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.6s ease-in-out infinite;
+}
+
+.skeleton-lines {
+  padding: 20px 22px 22px;
+}
+
+.skeleton-line {
+  height: 12px;
+  border-radius: 2px;
+  background: linear-gradient(100deg, var(--surface) 30%, var(--surface-2) 50%, var(--surface) 70%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.6s ease-in-out infinite;
+  margin-bottom: 12px;
+}
+
+.skeleton-line.w-70 {
+  width: 70%;
+}
+
+.skeleton-line.w-45 {
+  width: 45%;
+}
+
+.skeleton-line.w-30 {
+  width: 30%;
+  margin-bottom: 0;
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* --- Mobile --- */
+
+@media (max-width: 640px) {
+  .navbar-inner {
+    padding: 14px 18px;
+  }
+
+  .brand {
+    font-size: 1.35rem;
+  }
+
+  .brand-sub {
+    display: none;
+  }
+
+  .nav-links {
+    gap: 16px;
+  }
+
+  .nav-links a {
+    font-size: 0.66rem;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
+  .hero {
+    padding: 70px 20px 60px;
+  }
+
+  .trust-bar {
+    gap: 8px 18px;
+    font-size: 0.62rem;
+  }
+
+  .filter-bar {
+    margin: -36px 16px 32px;
+    padding: 20px;
+    max-width: none;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .lot-grid {
+    gap: 20px;
+  }
+
+  .booking-panel {
+    position: static;
+    top: auto;
+  }
+
+  .detail-photo {
+    height: 260px;
+  }
+
+  .form-card,
+  .confirmation {
+    padding: 24px;
+  }
 }
